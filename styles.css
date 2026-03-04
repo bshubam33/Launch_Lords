@@ -22,6 +22,52 @@
     --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* --- Theme Overrides (Light Mode) --- */
+body.light-theme {
+    --bg-main: #ffffff;
+    --bg-panel: #f8fafc;
+    --bg-card: #f1f5f9;
+    --bg-alt: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+
+    --accent-gold: #0d9488;
+    --accent-gold-hover: #0f766e;
+    --accent-gold-dim: rgba(13, 148, 136, 0.15);
+
+    --border-color: rgba(0, 0, 0, 0.08);
+    --glass-border: rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .navbar {
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .nav-links {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .logo img,
+body.light-theme .footer-logo img {
+    filter: none !important;
+}
+
+body.light-theme .globe-wrapper {
+    background: radial-gradient(circle at 30% 30%, #f8fafc 0%, #e2e8f0 80%, #cbd5e1 100%);
+    box-shadow: inset -20px -20px 50px rgba(0, 0, 0, 0.1), 0 0 40px rgba(13, 148, 136, 0.05);
+}
+
+body.light-theme .globe-vignette {
+    box-shadow: inset -20px -20px 50px rgba(0, 0, 0, 0.1), inset 0 0 20px rgba(13, 148, 136, 0.1) !important;
+}
+
+body.light-theme #themeToggle:hover {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+}
+
 * {
     margin: 0;
     padding: 0;

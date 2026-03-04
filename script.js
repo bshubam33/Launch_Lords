@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Theme Toggle ---
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+
+    if (localStorage.getItem('theme') === 'light') {
+        body.classList.add('light-theme');
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            localStorage.setItem('theme', body.classList.contains('light-theme') ? 'light' : 'dark');
+        });
+    }
+
     // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -84,14 +99,8 @@ function initGlobe() {
     const height = canvas.height;
     const center = [width / 2, height / 2];
 
-    // Colors matching the theme
-    const colors = {
-        water: '#05070a', // Deep dark space/water
-        land: '#0a1520',  // Dark blue-grey continents
-        landStroke: '#112233', // Slight outline 
-        point: '#d4b886', // Gold dots
-        ping: 'rgba(212, 184, 134, 0.5)' // Gold ping
-    };
+    // Colors matching the theme (will be dynamically computed per frame)
+    let colors = {};
 
     // Client Cities (Longitude, Latitude)
     const cities = [
@@ -161,6 +170,16 @@ function initGlobe() {
 
         // Animation Loop
         function render(time) {
+            const isLight = document.body.classList.contains('light-theme');
+            colors = {
+                water: isLight ? '#f8fafc' : '#05070a',
+                land: isLight ? '#e2e8f0' : '#0a1520',
+                landStroke: isLight ? '#cbd5e1' : '#112233',
+                point: isLight ? '#0d9488' : '#d4b886'
+            };
+            const pingColor = isLight ? '13, 148, 136' : '212, 184, 134';
+            const vignetteColor = isLight ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.8)';
+
             context.clearRect(0, 0, width, height);
 
             // Auto rotation
@@ -205,13 +224,13 @@ function initGlobe() {
                         const pulseOpacity = 1 - ((time % 2000) / 2000);
                         context.beginPath();
                         context.arc(xy[0], xy[1], pulseSize, 0, 2 * Math.PI);
-                        context.strokeStyle = `rgba(212, 184, 134, ${pulseOpacity})`;
+                        context.strokeStyle = `rgba(${pingColor}, ${pulseOpacity})`;
                         context.lineWidth = 1;
                         context.stroke();
 
                         // Draw Label (optional, adds nice detail map-style)
-                        context.fillStyle = "rgba(212, 184, 134, 0.7)";
-                        context.font = "10px Inter";
+                        context.fillStyle = `rgba(${pingColor}, 0.9)`;
+                        context.font = isLight ? "600 10px Inter" : "10px Inter";
                         context.fillText(city.name, xy[0] + 6, xy[1] + 3);
                     }
                 }
@@ -223,7 +242,7 @@ function initGlobe() {
                 width / 2, height / 2, width / 2
             );
             gradient.addColorStop(0, 'rgba(0,0,0,0)');
-            gradient.addColorStop(1, 'rgba(0,0,0,0.8)');
+            gradient.addColorStop(1, vignetteColor);
 
             context.beginPath();
             path({ type: "Sphere" });
