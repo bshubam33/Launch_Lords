@@ -272,6 +272,11 @@ function initGlobe() {
 // Init after DOM load
 document.addEventListener("DOMContentLoaded", function () {
     initGlobe();
+
+    // Dynamically update FormSubmit redirect to work on localhost & live domain
+    document.querySelectorAll('input[name="_next"]').forEach(input => {
+        input.value = window.location.origin + '/thanks.html';
+    });
 });
 
 // Application Modal Logic
