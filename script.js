@@ -124,9 +124,6 @@ function initGlobe() {
         .context(context);
 
     // Initial Rotation
-    let rotation = [20, -20, 0];
-    projection.rotate(rotation);
-
     // Load World Data
     d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(world => {
         const land = topojson.feature(world, world.objects.countries);
@@ -139,32 +136,34 @@ function initGlobe() {
 
         d3.select(canvas).call(drag);
 
-        let v0, r0, q0;
         let isDragging = false;
         let autoSpin = true;
-        let spinTime = 0;
 
         function dragStarted(event) {
             isDragging = true;
             autoSpin = false;
-            v0 = versor.cartesian(projection.invert([event.x, event.y]));
-            r0 = projection.rotate();
-            q0 = versor(r0);
             canvas.style.cursor = 'grabbing';
         }
 
         function dragged(event) {
-            const v1 = versor.cartesian(projection.rotate(r0).invert([event.x, event.y]));
-            const q1 = versor.multiply(q0, versor.delta(v0, v1));
-            const r1 = versor.rotation(q1);
-            projection.rotate(r1);
+            const rotate = projection.rotate();
+            // A sensitivity factor derived from scale makes the drag feel 1:1 mapped to the pointer
+            const k = 75 / projection.scale();
+
+            // event.dx is positive when dragging right -> rotate[0] (yaw) should increase
+            // event.dy is positive when dragging down -> rotate[1] (pitch) should decrease to track perfectly
+            projection.rotate([
+                rotate[0] + event.dx * k,
+                rotate[1] - event.dy * k,
+                rotate[2]
+            ]);
         }
 
         function dragEnded() {
             isDragging = false;
             canvas.style.cursor = 'grab';
 
-            // Resume spin after delay
+            // Resume spin after a short delay of not touching
             setTimeout(() => { if (!isDragging) autoSpin = true; }, 3000);
         }
 
@@ -172,13 +171,13 @@ function initGlobe() {
         function render(time) {
             const isLight = document.body.classList.contains('light-theme');
             colors = {
-                water: isLight ? '#f8fafc' : '#05070a',
-                land: isLight ? '#e2e8f0' : '#0a1520',
-                landStroke: isLight ? '#cbd5e1' : '#112233',
+                water: isLight ? '#f8fafc' : '#030508',
+                land: isLight ? '#cbd5e1' : '#080b11',
+                landStroke: isLight ? '#94a3b8' : 'rgba(255, 255, 255, 0.04)',
                 point: isLight ? '#0d9488' : '#d4b886'
             };
             const pingColor = isLight ? '13, 148, 136' : '212, 184, 134';
-            const vignetteColor = isLight ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.8)';
+            const vignetteColor = isLight ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.85)';
 
             context.clearRect(0, 0, width, height);
 
@@ -213,9 +212,20 @@ function initGlobe() {
                     // This creates a clean check.
                     const geoAngle = d3.geoDistance(city.coords, projection.invert(center));
                     if (geoAngle < Math.PI / 2) {
-                        // Draw point
+
+                        // Ambient Glow around the point
+                        const glowGradient = context.createRadialGradient(xy[0], xy[1], 0, xy[0], xy[1], 15);
+                        glowGradient.addColorStop(0, `rgba(${pingColor}, 0.5)`);
+                        glowGradient.addColorStop(1, `rgba(${pingColor}, 0)`);
+
                         context.beginPath();
-                        context.arc(xy[0], xy[1], 3, 0, 2 * Math.PI);
+                        context.arc(xy[0], xy[1], 15, 0, 2 * Math.PI);
+                        context.fillStyle = glowGradient;
+                        context.fill();
+
+                        // Draw point core
+                        context.beginPath();
+                        context.arc(xy[0], xy[1], 2, 0, 2 * Math.PI);
                         context.fillStyle = colors.point;
                         context.fill();
 
@@ -224,7 +234,7 @@ function initGlobe() {
                         const pulseOpacity = 1 - ((time % 2000) / 2000);
                         context.beginPath();
                         context.arc(xy[0], xy[1], pulseSize, 0, 2 * Math.PI);
-                        context.strokeStyle = `rgba(${pingColor}, ${pulseOpacity})`;
+                        context.strokeStyle = `rgba(${pingColor}, ${pulseOpacity * 0.8})`;
                         context.lineWidth = 1;
                         context.stroke();
 
@@ -257,18 +267,35 @@ function initGlobe() {
     });
 }
 
-// Very minimal Versor implementation for smooth quaternion D3 dragging
-const versor = (function () {
-    const acos = Math.acos, sin = Math.sin, cos = Math.cos, sqrt = Math.sqrt, atan2 = Math.atan2;
-    function v(e) { const n = e[0] * Math.PI / 180, t = e[1] * Math.PI / 180, r = e[2] * Math.PI / 180, o = cos(n / 2), a = cos(t / 2), c = cos(r / 2), i = sin(n / 2), s = sin(t / 2), u = sin(r / 2); return [o * a * c + i * s * u, i * a * c - o * s * u, o * s * c + i * a * u, o * a * u - i * s * c] }
-    v.cartesian = function (e) { const n = e[0] * Math.PI / 180, t = e[1] * Math.PI / 180, r = cos(t); return [r * cos(n), r * sin(n), sin(t)] };
-    v.rotation = function (e) { const n = e[0], t = e[1], r = e[2], o = e[3], a = 2 * (n * t + r * o), c = n * n - t * t - r * r + o * o, i = 2 * (t * o - n * r), s = 2 * (n * o + t * r), u = n * n + t * t - r * r - o * o; return [Math.atan2(a, c) * 180 / Math.PI, Math.asin(Math.max(-1, Math.min(1, i))) * 180 / Math.PI, Math.atan2(s, u) * 180 / Math.PI] };
-    v.multiply = function (e, n) { const t = e[0], r = e[1], o = e[2], a = e[3], c = n[0], i = n[1], s = n[2], u = n[3]; return [t * c - r * i - o * s - a * u, t * i + r * c + o * u - a * s, t * s - r * u + o * c + a * i, t * u + r * s - o * i + a * c] };
-    v.delta = function (e, n) { const t = function (e, n) { return e[0] * n[0] + e[1] * n[1] + e[2] * n[2] }(e, n), r = function (e, n) { return [e[1] * n[2] - e[2] * n[1], e[2] * n[0] - e[0] * n[2], e[0] * n[1] - e[1] * n[0]] }(e, n), o = acos(Math.max(-1, Math.min(1, t))), a = sin(o); return a ? [cos(o / 2), r[0] * sin(o / 2) / a, r[1] * sin(o / 2) / a, r[2] * sin(o / 2) / a] : [1, 0, 0, 0] };
-    return v;
-})();
+
 
 // Init after DOM load
 document.addEventListener("DOMContentLoaded", function () {
     initGlobe();
+});
+
+// Application Modal Logic
+function openApplicationModal(roleName) {
+    const modal = document.getElementById('applicationModal');
+    if (modal) {
+        document.getElementById('modalRoleTitle').innerText = 'Apply for ' + roleName;
+        document.getElementById('modalRoleInput').value = roleName;
+        document.getElementById('modalSubject').value = 'New Application: ' + roleName;
+        modal.classList.add('active');
+    }
+}
+
+function closeApplicationModal() {
+    const modal = document.getElementById('applicationModal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+// Close modal on click outside
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('applicationModal');
+    if (e.target === modal) {
+        closeApplicationModal();
+    }
 });
