@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launch Lords | Agentic AI Systems for Healthcare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <!-- D3.js and Topojson for interactive globe -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <span class="logo-text-inline">Launch Lords</span>
+            </a>
+            <div class="nav-links">
+                <a href="#problem">The Problem</a>
+                <a href="#services">Services</a>
+                <a href="#process">How It Works</a>
+                <a href="#why">Why Us</a>
+                <a href="#audit">Contact</a>
+            </div>
+            <a href="#audit" class="btn btn-primary">Book Audit</a>
+        </div>
+    </nav>
+
+    <!-- Section 1 - Hero -->
+    <header class="section hero">
+        <div class="hero-radar anim-fade">
+            <div class="circle c1"></div>
+            <div class="circle c2"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <span class="pre-title anim-slab">Healthcare Operations & AI</span>
+                <h1 class="headline anim-slab delay-1">
+                    Stop Losing Patients to<br>
+                    <span class="highlight-text">Broken Systems</span>
+                </h1>
+                <p class="subheadline anim-slab delay-2">Launch Lords builds agentic AI systems and conversion-focused
+                    websites for healthcare businesses so every patient inquiry is answered, handled, and turned into a
+                    booked appointment.</p>
+                <div class="anim-slab delay-3">
+                    <a href="#audit" class="btn btn-primary">Get Free Automation Audit</a>
+                </div>
+
+                <div class="audit-shows anim-slab delay-4">
+                    <ul class="audit-list">
+                        <li>Missed Opportunities</li>
+                        <li>Conversion Gaps</li>
+                        <li>Automation Potential</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- The Hidden Problem -->
+    <section id="problem" class="section">
+        <div class="container">
+            <div class="section-header anim-slab">
+                <span class="pre-title">The Hidden Problem</span>
+                <h2>Why Clinics Lose <span class="highlight-text">Patients</span></h2>
+                <p>Most healthcare businesses believe their biggest problem is getting more patients. In reality,
+                    clinics face one of two operational problems.</p>
+            </div>
+
+            <div class="split-content">
+                <div class="content-info anim-slab">
+                    <span class="content-number">01</span>
+                    <h3>Patients Are Lost Inside the System</h3>
+                    <p>Some clinics receive steady patient inquiries but lose them because the system handling those
+                        inquiries is inefficient. Common issues include unanswered incoming calls, delayed responses,
+                        and inefficient booking.</p>
+                    <p class="bold-text">Demand exists, but the system leaks it.</p>
+                </div>
+                <div class="content-media anim-img-reveal">
+                    <div class="ui-slab">
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">Incoming Call Log
+                        </div>
+                        <div
+                            style="padding: 1rem; border: 1px solid #ef4444; border-radius: 4px; margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
+                            <span>John Doe</span> <span style="color: #ef4444;">Missed</span>
+                        </div>
+                        <div
+                            style="padding: 1rem; border: 1px solid #ef4444; border-radius: 4px; display: flex; justify-content: space-between;">
+                            <span>Sarah Smith</span> <span style="color: #ef4444;">Missed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="split-content reverse">
+                <div class="content-info anim-slab">
+                    <span class="content-number">02</span>
+                    <h3>The Website Doesn’t Convert</h3>
+                    <p>Other clinics struggle because their online presence does not convert visitors into booked
+                        appointments. They act like brochures instead of booking systems.</p>
+                    <p class="bold-text">In this case, the problem is not marketing. It is conversion infrastructure.
+                    </p>
+                </div>
+                <div class="content-media anim-img-reveal">
+                    <div class="ui-slab" style="text-align: center;">
+                        <div
+                            style="width: 100%; height: 60px; background: var(--border-color); border-radius: 4px; margin-bottom: 1rem;">
+                        </div>
+                        <div class="btn btn-primary" style="opacity: 0.3; pointer-events: none;">Book Appointment</div>
+                        <div style="margin-top: 1rem; font-size: 0.8rem; color: #ef4444;">0% Conversion Rate</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center anim-slab" style="max-width: 800px; margin: 0 auto;">
+                <p class="gold-text" style="font-size: 1.25rem;">When the system is weak, even strong marketing cannot
+                    fix the problem. Before bringing more patients in, a clinic must ensure every inquiry can be
+                    captured and converted.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="section-header anim-slab">
+                <span class="pre-title">Economic Impact</span>
+                <h2>Revenue <span class="highlight-text">Leakage</span></h2>
+                <p>If a clinic receives 30–40 patient inquiries per week and just 5 fail to convert:</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item anim-slab">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Lost Weekly</div>
+                </div>
+                <div class="stat-item anim-slab delay-1">
+                    <div class="stat-value">20</div>
+                    <div class="stat-label">Lost Monthly</div>
+                </div>
+                <div class="stat-item anim-slab delay-2">
+                    <div class="stat-value">200+</div>
+                    <div class="stat-label">Lost Yearly</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="section-header anim-slab">
+                <span class="pre-title">Services</span>
+                <h2>What We <span class="highlight-text">Do</span></h2>
+                <p>Instead of relying on manual processes, we build structured systems that ensure patient inquiries are
+                    captured, responded to, and converted.</p>
+            </div>
+
+            <div class="split-content">
+                <div class="content-info anim-slab">
+                    <span class="content-number">01</span>
+                    <h3>Agentic AI Systems</h3>
+                    <p>Operational systems that handle patient communication and repetitive administrative workflows.
+                        Answer inquiries instantly, capture missed calls, and manage booking automatically.</p>
+                    <a href="#audit" class="link-explore">Explore AI</a>
+                </div>
+                <div class="content-media anim-img-reveal">
+                    <div class="ui-slab">
+                        <div
+                            style="font-size: 0.8rem; color: var(--accent-gold); margin-bottom: 1rem; font-weight: bold;">
+                            AI Receptionist Active</div>
+                        <div
+                            style="padding: 1rem; border: 1px solid rgba(212, 184, 134, 0.3); border-radius: 4px; margin-bottom: 0.5rem; background: rgba(212, 184, 134, 0.05);">
+                            "Hi, I'd like to book an appointment for tomorrow."
+                        </div>
+                        <div
+                            style="padding: 1rem; border: 1px solid var(--border-color); border-radius: 4px; text-align: right;">
+                            "I have 10:00 AM or 2:00 PM available. Which works best?"
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="split-content reverse">
+                <div class="content-info anim-slab">
+                    <span class="content-number">02</span>
+                    <h3>Conversion Websites</h3>
+                    <p>Websites structured to turn visitors into booked consultations. Guide patients toward booking,
+                        reduce friction, and present clear trust signals.</p>
+                    <a href="#audit" class="link-explore">Explore Web</a>
+                </div>
+                <div class="content-media anim-img-reveal">
+                    <div class="ui-slab" style="padding: 0;">
+                        <div
+                            style="height: 30px; background: var(--bg-main); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; padding: 0 1rem; gap: 5px;">
+                            <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--border-color);">
+                            </div>
+                            <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--border-color);">
+                            </div>
+                        </div>
+                        <div style="padding: 2rem; text-align: center;">
+                            <div style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem;">Book
+                                Your Visit</div>
+                            <div class="btn btn-primary" style="width: 100%;">Schedule Now</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="process" class="section border-top">
+        <div class="container">
+            <div class="section-header anim-slab">
+                <span class="pre-title">Framework</span>
+                <h2>How It <span class="highlight-text">Works</span></h2>
+            </div>
+
+            <div class="process-grid">
+                <div class="process-card anim-slab">
+                    <div class="process-number">1</div>
+                    <h3>System Audit</h3>
+                    <p>We review how your clinic currently handles patient inquiries to identify where patients are
+                        being lost.</p>
+                    <ul class="process-list">
+                        <li>Incoming calls</li>
+                        <li>Website booking flow</li>
+                        <li>Response times</li>
+                    </ul>
+                </div>
+                <div class="process-card anim-slab delay-1">
+                    <div class="process-number">2</div>
+                    <h3>System Design</h3>
+                    <p>Based on the audit, we design the infrastructure needed to improve patient handling.</p>
+                    <ul class="process-list">
+                        <li>AI-powered reception</li>
+                        <li>Workflow automation</li>
+                        <li>Conversion website</li>
+                    </ul>
+                </div>
+                <div class="process-card anim-slab delay-2">
+                    <div class="process-number">3</div>
+                    <h3>Deployment</h3>
+                    <p>Systems are implemented and integrated into your clinic’s operations seamlessly.</p>
+                    <ul class="process-list">
+                        <li>Inquiries captured faster</li>
+                        <li>Staff stress reduced</li>
+                        <li>Consistent handling</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us -->
+    <section id="why" class="section" style="padding-top: 5rem;">
+        <div class="container">
+            <div class="section-header anim-slab">
+                <h2>Why Launch <span class="highlight-text">Lords</span></h2>
+                <p>Healthcare businesses need systems designed around how patients actually interact with clinics, not
+                    generic tools.</p>
+            </div>
+
+            <div class="reasons-grid anim-slab">
+                <div class="reason-card">
+                    <h3 class="reason-title">Healthcare-Focused</h3>
+                    <p>Built around real clinic workflows, not generic business automation.</p>
+                </div>
+                <div class="reason-card">
+                    <h3 class="reason-title">Operational Thinking</h3>
+                    <p>The focus is on improving how inquiries turn into appointments.</p>
+                </div>
+                <div class="reason-card">
+                    <h3 class="reason-title">Practical Implementation</h3>
+                    <p>Systems designed to support staff, not complicate operations.</p>
+                </div>
+                <div class="reason-card">
+                    <h3 class="reason-title">Conversion-First</h3>
+                    <p>Websites structured to guide patients toward booking, not just display information.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Contact Section -->
+    <section id="audit" class="section contact-section border-top">
+        <div class="container">
+            <div class="section-header anim-slab center">
+                <span class="pre-title">Get In Touch</span>
+                <h2>At The Frontier Of <span class="highlight-text">Healthcare AI</span></h2>
+                <p>We are the team for healthcare businesses seeking operational excellence.</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Left: Globe Visual -->
+                <div class="contact-globe-container anim-slab">
+                    <div class="globe-wrapper">
+                        <!-- Interactive D3 Canvas Globe -->
+                        <canvas id="globeCanvas" width="400" height="400"
+                            style="cursor: grab; display: block; margin: 0 auto; border-radius: 50%;"></canvas>
+                        <!-- Overlay for shadow/fade edges -->
+                        <div class="globe-vignette"
+                            style="position: absolute; top:0; left:0; width:100%; height:100%; border-radius:50%; box-shadow: inset -20px -20px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(212, 184, 134, 0.1); pointer-events: none;">
+                        </div>
+                    </div>
+
+                    <div class="client-legend">
+                        <div class="legend-items">
+                            <span><i class="legend-dot"></i> Ireland</span>
+                            <span><i class="legend-dot"></i> London</span>
+                            <span><i class="legend-dot"></i> Belgium</span>
+                            <span><i class="legend-dot"></i> Germany</span>
+                            <span><i class="legend-dot"></i> India</span>
+                            <span><i class="legend-dot"></i> USA</span>
+                        </div>
+                        <span class="legend-title">Our client base</span>
+                    </div>
+                </div>
+
+                <!-- Right: Form -->
+                <div class="contact-form-container anim-slab delay-2">
+                    <div class="form-card">
+                        <h3
+                            style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 2rem; font-weight: 400;">
+                            Send us a message</h3>
+                        <form action="#" method="POST" class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Name *</label>
+                                <input type="text" id="name" name="name" placeholder="Your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Company</label>
+                                <input type="text" id="company" name="company" placeholder="Your company name">
+                            </div>
+                            <div class="form-group">
+                                <label for="service">Service of Interest *</label>
+                                <div class="select-wrapper">
+                                    <select id="service" name="service" required>
+                                        <option value="" disabled selected>Select a service</option>
+                                        <option value="Agentic AI">Agentic AI</option>
+                                        <option value="Website">Website</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" placeholder="Tell us about your project..."
+                                    rows="4"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary form-submit"
+                                style="width: 100%; margin-top: 1rem;">Launch Request</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center anim-slab delay-3" style="margin-top: 4rem;">
+                <p style="font-size: 0.875rem;">Prefer to email directly? <a href="mailto:shubhankar@launchlords.com"
+                        class="gold-text"
+                        style="text-decoration: underline; font-weight: 500;">shubhankar@launchlords.com</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">Launch Lords</div>
+
+            <div class="footer-socials">
+                <a href="https://www.instagram.com/launch_lords/" target="_blank" aria-label="Instagram"
+                    class="social-link">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+            </div>
+
+            <p>&copy; <span id="year"></span> Launch Lords. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
