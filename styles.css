@@ -339,12 +339,100 @@ p {
     color: var(--text-muted);
     text-decoration: none;
     font-size: 0.875rem;
-    transition: color 0.3s ease;
+    font-weight: 500;
+    transition: var(--transition);
 }
 
 .nav-links a:hover {
-    color: var(--text-main);
+    color: var(--accent-gold);
 }
+
+/* --- Mobile Menu Button --- */
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 102;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: var(--text-main);
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* --- Mobile Menu Overlay --- */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(10, 15, 20, 0.98);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 101;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s ease;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.mobile-menu-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    opacity: 0;
+}
+
+.mobile-menu-overlay.active .mobile-menu-links {
+    transform: translateY(0);
+    opacity: 1;
+    transition-delay: 0.1s;
+}
+
+.mobile-menu-links a:not(.btn) {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.mobile-menu-links a:not(.btn):hover {
+    color: var(--accent-gold);
+    transform: scale(1.05);
+}
+
+
 
 /* --- Hero Section --- */
 .hero {
@@ -1051,6 +1139,10 @@ p {
     .nav-links {
         display: none;
     }
+
+    .mobile-menu-btn {
+        display: flex;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1195,6 +1287,7 @@ body.light-theme .job-tag {
     line-height: 1.6;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
