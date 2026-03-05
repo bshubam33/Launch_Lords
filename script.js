@@ -148,7 +148,7 @@ function initGlobe() {
     // Initial Rotation
     // Load World Data
     d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(world => {
-        const land = topojson.feature(world, world.objects.countries);
+        const land = topojson.feature(world, world.objects.land);
 
         // Setup Drag Interaction
         const drag = d3.drag()
